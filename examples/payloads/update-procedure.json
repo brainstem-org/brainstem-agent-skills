@@ -1,0 +1,8 @@
+{
+  "resource": "procedure",
+  "method": "PATCH",
+  "id": "1f4f4f59-4748-5056-bdcb-a1bc11dea78f",
+  "body": {
+    "notes": "Probe track verified in CA1 and CA3 by histology."
+  }
+}

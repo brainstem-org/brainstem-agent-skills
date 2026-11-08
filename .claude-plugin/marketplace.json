@@ -1,0 +1,15 @@
+{
+  "name": "brainstem",
+  "description": "Agent Skills for BrainSTEM, the electronic lab notebook for experimental neuroscience",
+  "owner": {
+    "name": "BrainSTEM Team",
+    "url": "https://www.brainstem.org"
+  },
+  "plugins": [
+    {
+      "name": "brainstem",
+      "source": "./",
+      "description": "Search, create, update, set up and export BrainSTEM experimental metadata through its REST API"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "resource": "dataacquisition",
+  "method": "POST",
+  "body": {
+    "session": "02bbd089-8b1c-5415-b3c4-1084c0c54e68",
+    "type": "ExtracellularEphys",
+    "interfaces": [
+      "3af03d47-61e1-558c-9169-f9c7816205dc"
+    ],
+    "details": {
+      "fileName": "R02_20260302.dat",
+      "format": "binary",
+      "type": "int16",
+      "nChannels": 64,
+      "sr": {
+        "value": 30000,
+        "unit": "Hz"
+      }
+    }
+  }
+}

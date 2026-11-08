@@ -1,0 +1,25 @@
+BrainSTEM demo project data
+
+The following files hold BrainSTEM's demo project (dataset brainstem_rich_demo_v1), exported from a
+development server with tools/update_fixtures.sh, with user names replaced:
+
+  tests/fixtures/demo_lab.json
+  tests/fixtures/demo_export.json.gz
+
+They are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0), not under
+the MIT License that covers the rest of this repository:
+https://creativecommons.org/licenses/by/4.0/
+
+Copyright (c) 2025-2026 Peter C. Petersen - BrainSTEM Team
+
+Attribution: "BrainSTEM demo project, (c) Peter C. Petersen - BrainSTEM Team, https://www.brainstem.org,
+CC BY 4.0".
+
+Exceptions:
+
+- Shared catalog entries in these files that come from third parties (for example brain atlases,
+  anatomical regions, species and strains, and product names) remain under their sources' terms. Atlas
+  records name their source, citation and license.
+- The BrainSTEM data model, its JSON Schemas and its agent reference are not covered by this license and
+  are not part of this repository. They belong to BrainSTEM; their terms are on every BrainSTEM server at
+  /reference/license.md. The tests download them (tools/fetch_fixtures.py) and keep them local only.

@@ -1,0 +1,17 @@
+{
+  "resource": "session",
+  "method": "POST",
+  "body": {
+    "name": "R02 linear track 2026-03-02",
+    "status": "performed",
+    "projects": [
+      "1e99d5ea-8244-52b0-86d0-fb7beb130d2a"
+    ],
+    "session_type": "subject",
+    "subjects": [
+      "8a604525-1694-58b9-8cc3-25b92f41c44d"
+    ],
+    "date_time": "2026-03-02T10:00:00Z",
+    "description": "Linear track running with hippocampal recording."
+  }
+}

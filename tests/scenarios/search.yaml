@@ -1,0 +1,125 @@
+# Search scenarios against the demo lab fixture (tests/fixtures/demo_lab.json).
+# Ground truth comes from tests/harness/oracles.py.
+
+- id: search-ephys-ca1
+  tags: [skill-selection, relationships, regions]
+  token: contributor-token
+  turns:
+    - Find the sessions with extracellular electrophysiology recordings in CA1. List them with their ids.
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /taxonomies/anatomicalregion/}
+        - {method: GET, path_contains: /modules/dataacquisition/}
+    answer:
+      oracle: ephys_sessions_in_ca1
+      resource: session
+      must_match_any: ["(?i)atlas|AIA|Allen"]
+
+- id: search-visp-virus-injection
+  tags: [relationships, procedures]
+  token: contributor-token
+  turns:
+    - Which subjects received a virus injection targeting primary visual cortex? Give subject names and ids.
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /modules/procedure/}
+    answer:
+      oracle: subjects_with_visp_virus_injection
+      resource: subject
+
+- id: search-mice-without-probe
+  tags: [negation, species]
+  token: contributor-token
+  turns:
+    - In the "Neural dynamics of adaptive spatial decision-making" project, which mice did not get a silicon probe implant?
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+    answer:
+      oracle: mice_without_silicon_probe
+      resource: subject
+
+- id: search-rat-two-photon-none
+  tags: [empty-result, species, anti-fabrication]
+  token: contributor-token
+  turns:
+    - List the rat sessions with two-photon imaging.
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+    answer:
+      oracle: rat_two_photon_sessions
+      resource: session
+      must_match_any: ["(?i)no (matching )?(sessions|records|results)|none|did not find|0 sessions|zero"]
+
+- id: search-neuropixels-none
+  tags: [anti-fabrication, materials, lookup]
+  token: contributor-token
+  turns:
+    - Find sessions with Neuropixels recordings.
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /resources/consumable/}
+    answer:
+      oracle: none
+      resource: session
+      must_match_any: ["(?i)no (matching )?(sessions|records|results|neuropixels)|none|did not find|not find|no consumable"]
+
+- id: search-probe-design
+  tags: [materials, relationships]
+  token: contributor-token
+  turns:
+    - Which sessions used the A1x32-6mm-50-177 silicon probe?
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /modules/materialusage/}
+    answer:
+      oracle: sessions_with_probe_design
+      resource: session
+
+- id: search-behavior-and-recording
+  tags: [intersection, behavior]
+  token: contributor-token
+  turns:
+    - Find experiments that combine delayed alternation behavior with hippocampal electrophysiology recordings.
+  expect:
+    skill: brainstem-search
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /stem/session/}
+    answer:
+      oracle: delayed_alternation_with_hippocampal_ephys
+      resource: session
+
+- id: search-public-only
+  tags: [access-control]
+  token: contributor-token
+  turns:
+    - Using only BrainSTEM's public portal (no login), find sessions with extracellular electrophysiology recordings in CA1.
+  expect:
+    skill: brainstem-search
+    # "No login" may mean no token at all (reference unreadable, answer says it was not checked) or the
+    # token for the reference only. Either way every data request must go to the public portal.
+    reads_reference: false
+    requests:
+      no_writes: true
+      only_portal: public
+    answer:
+      oracle: none
+      resource: session
+      must_match_any: ["(?i)public portal"]

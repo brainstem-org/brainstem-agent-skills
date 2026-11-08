@@ -1,0 +1,11 @@
+{
+  "name": "brainstem",
+  "description": "Search, create, update, set up and export BrainSTEM experimental metadata through its REST API",
+  "version": "0.3.0",
+  "author": {
+    "name": "BrainSTEM Team",
+    "url": "https://www.brainstem.org"
+  },
+  "homepage": "https://github.com/brainstem-org/brainstem-agent-skills",
+  "repository": "https://github.com/brainstem-org/brainstem-agent-skills"
+}

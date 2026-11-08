@@ -1,0 +1,28 @@
+name: Server check
+
+# Weekly check that the skills still match a live BrainSTEM server. Set the repository variable
+# BRAINSTEM_CHECK_URL (for example https://www.brainstem.org) to enable it. Needs no token: the agent
+# reference, the schema URLs and the public portal are public.
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check:
+    if: ${{ vars.BRAINSTEM_CHECK_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest pyyaml
+      - name: The server's agent reference matches what the skills cite
+        run: python tools/check_server.py "${{ vars.BRAINSTEM_CHECK_URL }}"
+      - name: Fetch the server's agent reference and schemas
+        run: python tools/fetch_fixtures.py "${{ vars.BRAINSTEM_CHECK_URL }}"
+      - name: The mock API matches the server's query behavior
+        env:
+          BRAINSTEM_CONTRACT_URL: ${{ vars.BRAINSTEM_CHECK_URL }}
+        run: python -m pytest tests/contract -q

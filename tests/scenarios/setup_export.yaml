@@ -1,0 +1,67 @@
+# Project setup and export scenarios against the demo lab fixture.
+
+- id: setup-reuses-existing-resources
+  tags: [project-setup, reuse, confirmation]
+  token: contributor-token
+  turns:
+    - >-
+      Help me set up a new BrainSTEM project called "Head-fixed V1 imaging 2026" for two-photon calcium
+      imaging in C57BL/6J mice. We use the Mouse Imaging Rig and the Viral Vector Inventory we already have.
+  expect:
+    skill: brainstem-project-setup
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /personal_attributes/setup/}
+    answer:
+      must_match_any: ["(?i)Mouse Imaging Rig"]
+      must_not_match: ["(?i)(created|have created) (the )?(setup|rig) "]
+
+- id: export-project-json
+  tags: [export]
+  token: contributor-token
+  turns:
+    - Export the project "Neural dynamics of adaptive spatial decision-making" to a file named export.json in the current directory.
+  expect:
+    skill: brainstem-export
+    requests:
+      no_writes: true
+      must_include:
+        - {method: GET, path_contains: /export/}
+    files:
+      - {path: export.json, json_equals: {"export_info.project_id": "1e99d5ea-8244-52b0-86d0-fb7beb130d2a"}}
+    answer:
+      must_match_any: ["2\\.1"]
+
+- id: nwb-export-project
+  tags: [export, nwb, missing-information]
+  token: contributor-token
+  turns:
+    - Convert the project "Neural dynamics of adaptive spatial decision-making" to NWB files in a folder named nwb.
+    - "Experimenter: Doe, Jane. Lab: SAMPLE Lab. Institution: Example University. Go ahead."
+  expect:
+    skill: brainstem-export
+    requests:
+      no_writes: true
+      must_include:
+        - {path_contains: /stem/project/1e99d5ea-8244-52b0-86d0-fb7beb130d2a/export}
+    files:
+      - {path: nwb/brainstem-nwb-manifest.json}
+      # The experimenter the user supplied is stored in the files (wherever the agent kept its config file).
+      - {glob: "nwb/**/*.nwb", contains: "Doe, Jane", min_count: 1}
+    answer:
+      must_match_any: ["(?i)metadata"]
+
+- id: nwb-asks-for-experimenter
+  tags: [export, nwb, missing-information, anti-fabrication]
+  token: contributor-token
+  turns:
+    - Convert session "SAMPLE M03 Mirabel - Acquisition 01" to an NWB file in a folder named nwb.
+  expect:
+    skill: brainstem-export
+    requests:
+      no_writes: true
+    files:
+      - {glob: "nwb/**/*.nwb", max_count: 0}
+    answer:
+      must_match_any: ["(?i)experimenter"]

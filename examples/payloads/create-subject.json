@@ -1,0 +1,14 @@
+{
+  "resource": "subject",
+  "method": "POST",
+  "body": {
+    "name": "M10 Example Mouse",
+    "projects": [
+      "1e99d5ea-8244-52b0-86d0-fb7beb130d2a"
+    ],
+    "species": "417ec7b1-a963-4971-9029-0a989432cb0f",
+    "sex": "F",
+    "status": "active",
+    "birth_date": "2025-11-02"
+  }
+}

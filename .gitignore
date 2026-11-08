@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store
+tests/harness/runs/
+
+# Downloaded with tools/fetch_fixtures.py; BrainSTEM content that may be cached but not redistributed
+tests/fixtures/agent_reference.json
+tests/fixtures/schemas.json.gz

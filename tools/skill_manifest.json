@@ -1,0 +1,32 @@
+{
+  "skills": {
+    "brainstem-overview": [
+      "connection.md",
+      "safety.md"
+    ],
+    "brainstem-search": [
+      "connection.md",
+      "safety.md"
+    ],
+    "brainstem-export": [
+      "connection.md",
+      "safety.md",
+      "nwb-export.md"
+    ],
+    "brainstem-create": [
+      "connection.md",
+      "safety.md",
+      "write-protocol.md"
+    ],
+    "brainstem-update": [
+      "connection.md",
+      "safety.md",
+      "write-protocol.md"
+    ],
+    "brainstem-project-setup": [
+      "connection.md",
+      "safety.md",
+      "write-protocol.md"
+    ]
+  }
+}
