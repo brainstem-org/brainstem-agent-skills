@@ -54,7 +54,7 @@ Only environments that ran the evaluation suite (`tests/harness/run.py`) are lis
 | Environment | Status | Evidence |
 |---|---|---|
 | Claude Code 2.1.296, model `claude-opus-5-5` | tested | 2026-10-16: 20/20 scenarios passed in one full run (search 8, create/update/safety 8, setup 1, JSON export 1, NWB export 2) against the mock API serving the public reference, the schema URLs, the demo lab and its real export |
-| Claude Code plugin install (`/plugin marketplace add`) | manifest validated (`claude plugin validate`), install not yet tested from GitHub | |
+| Claude Code plugin install (`/plugin marketplace add`) | install tested | 2026-11-08, Claude Code 2.1.318: `marketplace add brainstem-org/brainstem-agent-skills` and `plugin install brainstem@brainstem` from GitHub install version 0.3.0 with all six skills and their references |
 | OpenAI Codex | not tested | skills follow the Agent Skills format Codex reads from `.agents/skills/` |
 | Other Agent Skills environments | not tested | |
 
